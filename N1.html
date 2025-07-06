@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>넘즐잼 (NUMZZLE JAM)</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+.cloud-btn {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(33, 150, 243, 0.3);
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.cloud-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 12px 40px rgba(33, 150, 243, 0.4);
+}
+
+.cloud-btn::before {
+content: ‘’;
+position: absolute;
+top: -50%;
+left: -50%;
+width: 200%;
+height: 200%;
+background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+0%, 100% { transform: translate(0, 0) rotate(0deg); }
+33% { transform: translate(10px, -10px) rotate(1deg); }
+66% { transform: translate(-5px, 5px) rotate(-1deg); }
+}
+
+.cloud-icon {
+display: inline-block;
+margin-right: 8px;
+font-size: 1.2em;
+position: relative;
+z-index: 1;
+}
+
+.cloud-text {
+position: relative;
+z-index: 1;
+}
+</style>
+
+</head>
+<body class="bg-blue-50 min-h-screen">
+
+<!-- 초기화면 -->
+
+<div id="startScreen" class="max-w-4xl mx-auto p-6">
+  <div class="bg-white rounded-lg shadow-lg p-8">
+    <h1 class="text-4xl font-bold text-center mb-4 text-blue-600">넘즐잼 (NUMZZLE JAM)</h1>
+    <p class="text-center text-sm mb-8 text-gray-600">NUMZZLE JAM is a combination of "NUMBER" and "PUZZLE".</p>
+
+<div class="p-6 bg-yellow-50 rounded-lg mb-6">
+  <h3 class="text-xl font-bold mb-2 text-center">넘즐잼 규칙 (Game Rules)</h3>
+  <p class="text-lg leading-relaxed text-gray-700">
+    넘즐잼은 주어진 숫자와 연산기호를 이용하여 목표 숫자에 가장 가까운 결과를 만드는 게임입니다.
+    <br>수식의 결과가 목표 숫자에 딱 맞거나 가장 근접하면 10점을 받습니다.
+   <br><br>
+    NUMZZLE JAM is a game where you use given numbers and operators to create an expression as close as possible to the target number.
+    <br>The closer you get, the more points you score!
+  </p>
+</div>
+
+<div class="space-y-4">
+  <label class="block text-lg font-semibold mb-2">🎯 목표 숫자 (Target Number):</label>
+  <input id="targetInput" type="number" value="10" min="1" max="100"
+         class="w-full p-3 border border-gray-300 rounded-lg text-lg" />
+</div>
+
+<div class="flex justify-center gap-4 mt-8">
+  <button onclick="startPracticeGame()"
+    class="cloud-btn flex-1 text-blue-800 text-xl font-bold py-4 px-6 transition-colors relative">
+    <span class="cloud-text">
+      <span class="cloud-icon">☁️</span>
+      연습<br>Practice
+    </span>
+  </button>
+  <button onclick="startBattleGame()"
+    class="cloud-btn flex-1 text-red-800 text-xl font-bold py-4 px-6 transition-colors relative">
+    <span class="cloud-text">
+      <span class="cloud-icon">⛅</span>
+      실전<br>Battle
+    </span>
+  </button>
+</div>
+
+<p class="text-center text-sm mt-6 text-gray-400">© 2025 한수수. All rights reserved.</p>
+
+  </div>
+</div>
+
+<!-- 게임 화면 -->
+
+<div id="gameScreen" class="hidden max-w-6xl mx-auto p-6">
+  <div class="bg-white rounded-lg shadow-lg p-6">
+    <div class="text-center mb-6">
+      <h1 class="text-3xl font-bold text-blue-600 mb-2">넘즐잼 (NUMZZLE JAM)</h1>
+      <p class="text-xl mb-4">🎯<span id="targetDisplay" class="font-bold text-red-600"></span></p>
+    </div>
+
+<div class="grid grid-cols-3 gap-4 mb-6">
+  <div class="text-center p-4 bg-blue-100 rounded-lg">
+    <h3 class="font-bold">라운드<br>Round</h3>
+    <p id="roundDisplay" class="text-2xl"></p>
+  </div>
+  <div class="text-center p-4 bg-green-100 rounded-lg">
+    <h3 class="font-bold">사용자<br>USER</h3>
+    <p id="userScore" class="text-2xl">0</p>
+  </div>
+  <div class="text-center p-4 bg-red-100 rounded-lg">
+    <h3 class="font-bold">컴퓨터<br>Computer</h3>
+    <p id="computerScore" class="text-2xl">0</p>
+  </div>
+</div>
+
+<div class="mb-6">
+  <h3 class="text-xl font-bold mb-3">내 카드 (My Cards):</h3>
+  <div id="cardsArea" class="flex flex-wrap gap-2"></div>
+</div>
+
+<div class="mb-6">
+  <h3 class="text-lg font-bold mb-2">내 수식 (My Expression):</h3>
+  <div id="userExpression" class="bg-white p-3 border-2 border-green-300 rounded-lg text-xl font-mono">
+    (카드를 클릭하세요)
+  </div>
+</div>
+
+<div class="mb-6">
+  <h3 class="text-xl font-bold mb-3">컴퓨터 카드 (Computer Cards):</h3>
+  <div id="computerCardsArea" class="flex flex-wrap gap-2"></div>
+</div>
+
+<div class="mb-6">
+  <h3 class="text-lg font-bold mb-2">컴퓨터 수식 (Computer Expression):</h3>
+  <div id="computerExpression" class="bg-white p-3 border-2 border-red-300 rounded-lg text-xl font-mono">
+    컴퓨터가 생각 중...<br>Computer is thinking...
+  </div>
+</div>
+
+<div id="actionButtons" class="flex gap-4 mb-6">
+  <button onclick="submitExpression()"
+    class="cloud-btn flex-1 text-green-800 text-lg font-bold py-3 px-6 transition-colors relative">
+    <span class="cloud-text">
+      <span class="cloud-icon">✅</span>
+      제출<br>Submit
+    </span>
+  </button>
+  <button onclick="resetExpression()"
+    class="cloud-btn flex-1 text-gray-800 text-lg font-bold py-3 px-6 transition-colors relative">
+    <span class="cloud-text">
+      <span class="cloud-icon">🔄</span>
+      초기화<br>Reset
+    </span>
+  </button>
+</div>
+
+<div id="nextRoundArea" class="hidden text-center mb-6">
+  <button onclick="nextRound()"
+    class="cloud-btn text-blue-800 text-lg font-bold py-3 px-8 transition-colors relative">
+    <span class="cloud-text">
+      <span class="cloud-icon">➡️</span>
+      다음 라운드<br>Next Round
+    </span>
+  </button>
+</div>
+
+<div id="resultArea" class="hidden text-center p-6 bg-gray-100 rounded-lg">
+  <p class="text-lg text-gray-600">게임 종료</p>
+</div>
+
+<div class="text-center mt-6">
+  <button onclick="goHome()"
+    class="cloud-btn text-purple-800 text-lg font-bold py-3 px-6 mr-4 transition-colors relative">
+    <span class="cloud-text">
+      <span class="cloud-icon">🏠</span>
+      홈으로<br>Home
+    </span>
+  </button>
+  <button onclick="backToStart()"
+    class="cloud-btn text-gray-800 text-lg font-bold py-3 px-6 transition-colors relative">
+    <span class="cloud-text">
+      <span class="cloud-icon">⚙️</span>
+      설정<br>Settings
+    </span>
+  </button>
+</div>
+
+  </div>
+</div>
+
+<script>
+let isPracticeMode = true;
+let targetNumber = 10;
+let currentRound = 1;
+let userScore = 0;
+let computerScore = 0;
+let userExpression = '';
+let userCards = [];
+let computerCards = [];
+let roundCompleted = false;
+let isBuildingNumber = false;
+let originalUserCards = [];
+
+// 카드덱 생성
+const createNumberDeck = () => {
+  const deck = [];
+  // 0~9: 각 8장씩
+  for (let num = 0; num <= 9; num++) {
+    for (let i = 0; i < 8; i++) deck.push(num);
+  }
+  return deck;
+};
+
+const createOperatorDeck = () => {
+  const deck = [];
+  // +: 30장, -: 30장, ×: 20장
+  for (let i = 0; i < 30; i++) deck.push('+');
+  for (let i = 0; i < 30; i++) deck.push('-');
+  for (let i = 0; i < 20; i++) deck.push('*');
+  return deck;
+};
+
+// 덱 섞기 및 카드 뽑기
+const shuffleAndDraw = (deck, count) => {
+  const shuffled = [...deck].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+};
+
+// 카드 생성 (7장: 숫자 4장 + 연산 3장)
+const generateCards = () => {
+  const numberDeck = createNumberDeck();
+  const operatorDeck = createOperatorDeck();
+  
+  const numbers = shuffleAndDraw(numberDeck, 4);
+  const operators = shuffleAndDraw(operatorDeck, 3);
+  
+  return [...numbers, ...operators];
+};
+
+const renderCards = () => {
+  const cardsArea = document.getElementById('cardsArea');
+  cardsArea.innerHTML = '';
+  userCards.forEach((card, index) => {
+    const btn = document.createElement('button');
+    btn.className = 'bg-white border-2 border-blue-300 rounded-lg p-3 text-xl font-bold';
+    btn.textContent = card === '*' ? '×' : card;
+    btn.onclick = () => {
+      if (!roundCompleted) {
+        if (!isNaN(card)) {
+          if (isBuildingNumber) {
+            userExpression = userExpression.slice(0, -1) + userExpression.slice(-1) + card;
+          } else {
+            userExpression += card;
+            isBuildingNumber = true;
+          }
+        } else {
+          userExpression += (card === '*' ? '×' : card);
+          isBuildingNumber = false;
+        }
+        document.getElementById('userExpression').textContent = userExpression;
+        userCards.splice(index, 1);
+        renderCards();
+      }
+    };
+    cardsArea.appendChild(btn);
+  });
+};
+
+const renderComputerCards = () => {
+  const computerCardsArea = document.getElementById('computerCardsArea');
+  computerCardsArea.innerHTML = '';
+  computerCards.forEach(card => {
+    const span = document.createElement('span');
+    span.className = 'bg-white border-2 border-red-300 rounded-lg p-3 text-xl font-bold';
+    span.textContent = card === '*' ? '×' : card;
+    computerCardsArea.appendChild(span);
+  });
+};
+
+// 컴퓨터가 최적의 답을 찾는 함수
+const findBestExpression = (cards) => {
+  const numbers = cards.filter(c => !isNaN(c));
+  const operators = cards.filter(c => isNaN(c));
+  let bestExpr = '';
+  let bestVal = Infinity;
+  let bestDiff = Infinity;
+  let usedCards = [];
+
+  // 숫자 하나만 내는 경우
+  numbers.forEach(num => {
+    const val = Number(num);
+    const diff = Math.abs(targetNumber - val);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      bestVal = val;
+      bestExpr = `${num}`;
+      usedCards = [num];
+    }
+  });
+
+  // 2자리 숫자 만들기 (연속 숫자 결합)
+  if (numbers.length >= 2) {
+    numbers.forEach((a, i) => {
+      numbers.forEach((b, j) => {
+        if (i !== j) {
+          const combined = Number(`${a}${b}`);
+          const diff = Math.abs(targetNumber - combined);
+          if (diff < bestDiff) {
+            bestDiff = diff;
+            bestVal = combined;
+            bestExpr = `${a}${b}`;
+            usedCards = [a, b];
+          }
+        }
+      });
+    });
+  }
+
+  // 3자리 숫자 만들기
+  if (numbers.length >= 3) {
+    numbers.forEach((a, i) => {
+      numbers.forEach((b, j) => {
+        numbers.forEach((c, k) => {
+          if (i !== j && j !== k && i !== k) {
+            const combined = Number(`${a}${b}${c}`);
+            const diff = Math.abs(targetNumber - combined);
+            if (diff < bestDiff) {
+              bestDiff = diff;
+              bestVal = combined;
+              bestExpr = `${a}${b}${c}`;
+              usedCards = [a, b, c];
+            }
+          }
+        });
+      });
+    });
+  }
+
+  // 2개 숫자 + 1개 연산자
+  if (numbers.length >= 2 && operators.length >= 1) {
+    numbers.forEach((a, i) => {
+      numbers.forEach((b, j) => {
+        if (i !== j) {
+          operators.forEach(op => {
+            try {
+              const expr = `${a}${op}${b}`;
+              const val = eval(expr);
+              const diff = Math.abs(targetNumber - val);
+              if (diff < bestDiff) {
+                bestDiff = diff;
+                bestVal = val;
+                bestExpr = expr.replace(/\*/g, '×');
+                usedCards = [a, b, op];
+              }
+            } catch {}
+          });
+        }
+      });
+    });
+  }
+
+  // 2자리 숫자 + 연산자 + 숫자
+  if (numbers.length >= 3 && operators.length >= 1) {
+    numbers.forEach((a, i) => {
+      numbers.forEach((b, j) => {
+        numbers.forEach((c, k) => {
+          if (i !== j && j !== k && i !== k) {
+            operators.forEach(op => {
+              try {
+                // ab + c, ab - c, ab * c
+                const expr1 = `${a}${b}${op}${c}`;
+                const val1 = eval(expr1);
+                const diff1 = Math.abs(targetNumber - val1);
+                if (diff1 < bestDiff) {
+                  bestDiff = diff1;
+                  bestVal = val1;
+                  bestExpr = expr1.replace(/\*/g, '×');
+                  usedCards = [a, b, c, op];
+                }
+
+                // a + bc, a - bc, a * bc
+                const expr2 = `${a}${op}${b}${c}`;
+                const val2 = eval(expr2);
+                const diff2 = Math.abs(targetNumber - val2);
+                if (diff2 < bestDiff) {
+                  bestDiff = diff2;
+                  bestVal = val2;
+                  bestExpr = expr2.replace(/\*/g, '×');
+                  usedCards = [a, b, c, op];
+                }
+              } catch {}
+            });
+          }
+        });
+      });
+    });
+  }
+
+  // 3개 숫자 + 2개 연산자
+  if (numbers.length >= 3 && operators.length >= 2) {
+    numbers.forEach((a, i) => {
+      numbers.forEach((b, j) => {
+        numbers.forEach((c, k) => {
+          if (i !== j && j !== k && i !== k) {
+            operators.forEach((op1, x) => {
+              operators.forEach((op2, y) => {
+                if (x !== y) {
+                  try {
+                    const expr = `${a}${op1}${b}${op2}${c}`;
+                    const val = eval(expr);
+                    const diff = Math.abs(targetNumber - val);
+                    if (diff < bestDiff) {
+                      bestDiff = diff;
+                      bestVal = val;
+                      bestExpr = expr.replace(/\*/g, '×');
+                      usedCards = [a, b, c, op1, op2];
+                    }
+                  } catch {}
+                }
+              });
+            });
+          }
+        });
+      });
+    });
+  }
+
+  // 4개 숫자 + 3개 연산자 (모든 카드 사용)
+  if (numbers.length >= 4 && operators.length >= 3) {
+    numbers.forEach((a, i) => {
+      numbers.forEach((b, j) => {
+        numbers.forEach((c, k) => {
+          numbers.forEach((d, l) => {
+            if (new Set([i, j, k, l]).size === 4) {
+              operators.forEach((op1, w) => {
+                operators.forEach((op2, x) => {
+                  operators.forEach((op3, y) => {
+                    if (new Set([w, x, y]).size === 3) {
+                      try {
+                        const expr = `${a}${op1}${b}${op2}${c}${op3}${d}`;
+                        const val = eval(expr);
+                        const diff = Math.abs(targetNumber - val);
+                        if (diff < bestDiff) {
+                          bestDiff = diff;
+                          bestVal = val;
+                          bestExpr = expr.replace(/\*/g, '×');
+                          usedCards = [a, b, c, d, op1, op2, op3];
+                        }
+                      } catch {}
+                    }
+                  });
+                });
+              });
+            }
+          });
+        });
+      });
+    });
+  }
+
+  return { expr: bestExpr, usedCards };
+};
+
+const startPracticeGame = () => {
+  isPracticeMode = true;
+  startGame();
+};
+
+const startBattleGame = () => {
+  isPracticeMode = false;
+  startGame();
+};
+
+const startGame = () => {
+  targetNumber = Number(document.getElementById('targetInput').value);
+  currentRound = 1;
+  userScore = 0;
+  computerScore = 0;
+  userExpression = '';
+  roundCompleted = false;
+  isBuildingNumber = false;
+
+  if (isPracticeMode) {
+    userCards = generateCards();
+    computerCards = [...userCards];
+  } else {
+    userCards = generateCards();
+    computerCards = generateCards();
+  }
+  originalUserCards = [...userCards];
+
+  document.getElementById('targetDisplay').textContent = targetNumber;
+  document.getElementById('roundDisplay').textContent = `${currentRound} / 10`;
+  document.getElementById('userScore').textContent = userScore;
+  document.getElementById('computerScore').textContent = computerScore;
+
+  renderCards();
+  renderComputerCards();
+  document.getElementById('userExpression').textContent = '(카드를 클릭하세요)';
+  document.getElementById('computerExpression').textContent = '컴퓨터가 생각 중...\nComputer is thinking...';
+
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('gameScreen').classList.remove('hidden');
+};
+
+const submitExpression = () => {
+  if (!userExpression) return alert('수식을 만들어주세요!');
+  try {
+    const evalExpression = userExpression.replace(/×/g, '*');
+    const userVal = eval(evalExpression);
+    
+    const computerCardsClone = [...computerCards];
+    const { expr: computerExpr, usedCards } = findBestExpression(computerCardsClone);
+    const computerVal = eval(computerExpr.replace(/×/g, '*'));
+    document.getElementById('computerExpression').textContent = computerExpr;
+
+    const newComputerCards = [...computerCards];
+    usedCards.forEach(usedCard => {
+      const index = newComputerCards.indexOf(usedCard);
+      if (index > -1) {
+        newComputerCards.splice(index, 1);
+      }
+    });
+    computerCards = newComputerCards;
+    renderComputerCards();
+
+    const pointsPerRound = 10;
+    let userRoundScore = 0;
+    let computerRoundScore = 0;
+
+    const diffUser = Math.abs(targetNumber - userVal);
+    const diffComp = Math.abs(targetNumber - computerVal);
+
+    if (diffUser < diffComp) {
+      userRoundScore = pointsPerRound;
+    } else if (diffComp < diffUser) {
+      computerRoundScore = pointsPerRound;
+    } else {
+      userRoundScore = pointsPerRound;
+      computerRoundScore = pointsPerRound;
+    }
+
+    userScore += userRoundScore;
+    computerScore += computerRoundScore;
+
+    document.getElementById('userScore').textContent = userScore;
+    document.getElementById('computerScore').textContent = computerScore;
+    roundCompleted = true;
+
+    if (currentRound === 10) {
+      document.getElementById('resultArea').classList.remove('hidden');
+    } else {
+      document.getElementById('nextRoundArea').classList.remove('hidden');
+    }
+    
+    document.getElementById('actionButtons').classList.add('hidden');
+  } catch {
+    alert('올바른 수식을 입력해주세요!');
+  }
+};
+
+const nextRound = () => {
+  if (currentRound >= 10) {
+    return;
+  }
+  
+  currentRound++;
+  document.getElementById('roundDisplay').textContent = `${currentRound} / 10`;
+  isBuildingNumber = false;
+
+  if (isPracticeMode) {
+    userCards = generateCards();
+    computerCards = [...userCards];
+  } else {
+    userCards = generateCards();
+    computerCards = generateCards();
+  }
+  originalUserCards = [...userCards];
+
+  renderCards();
+  renderComputerCards();
+  userExpression = '';
+  document.getElementById('userExpression').textContent = '(카드를 클릭하세요)';
+  document.getElementById('computerExpression').textContent = '컴퓨터가 생각 중...\nComputer is thinking...';
+  roundCompleted = false;
+  document.getElementById('nextRoundArea').classList.add('hidden');
+  document.getElementById('actionButtons').classList.remove('hidden');
+};
+
+const resetExpression = () => {
+  if (!roundCompleted) {
+    userExpression = '';
+    isBuildingNumber = false;
+    userCards = [...originalUserCards];
+    renderCards();
+    document.getElementById('userExpression').textContent = '(카드를 클릭하세요)';
+  }
+};
+
+const goHome = () => {
+  window.location.href = "/numzzle/index.html";
+};
+
+const backToStart = () => {
+  isPracticeMode = true;
+  targetNumber = 10;
+  currentRound = 1;
+  userScore = 0;
+  computerScore = 0;
+  userExpression = '';
+  userCards = [];
+  computerCards = [];
+  roundCompleted = false;
+  isBuildingNumber = false;
+  originalUserCards = [];
+  
+  document.getElementById('nextRoundArea').classList.add('hidden');
+  document.getElementById('resultArea').classList.add('hidden');
+  document.getElementById('actionButtons').classList.remove('hidden');
+  
+  document.getElementById('startScreen').classList.remove('hidden');
+  document.getElementById('gameScreen').classList.add('hidden');
+};
+</script>
+
+</body>
+</html>
