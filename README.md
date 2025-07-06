@@ -93,6 +93,8 @@ It is designed to challenge both mathematical thinking and creativity at the hig
 Each version differs not only in difficulty, but also in available operations, card usage rules, and overall game flexibility —  
 allowing players to choose based on their skill and learning level.---
 
+---
+
 ## 🧪 한수수의 다른 게임들 | Other Games by Soosoo Han
 
 - **트링클 (Trinkle)**  
@@ -115,6 +117,8 @@ allowing players to choose based on their skill and learning level.---
   *Guess the missing consonants to complete words, phrases, or sentences using vowels and hints*   
   👉 http://soosoohan.github.io/moeum-quiz
 
+---
+
 ## 👤 만든 사람 | Credits
 
 
@@ -124,7 +128,7 @@ allowing players to choose based on their skill and learning level.---
 - 디자인 도움: 네이처 리
 <br>
 <p>ⓒ 2025 한수수. 이 게임의 모든 권리는 제작자인 한수수에게 있습니다.<br>
- 무단 복제, 배포, 2차 창작을 금합니다.</p><br>
+ 무단 복제, 배포, 2차 창작을 금합니다.</p>
 
 - Created and Developed by Soosoo Han  
 - Development Assistant: ChatGPT  
