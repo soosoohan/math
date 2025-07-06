@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>넘즐 (Numzzle)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #209087;
+      margin: 0;
+      padding: 20px;
+      color: #fff;
+      text-align: center;
+    }
+
+    header {
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #FFE2E2;
+      margin-bottom: 0.2em;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      color: #FFE2E2;
+      margin-top: 0;
+    }
+
+    .content {
+      max-width: 700px;
+      margin: auto;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .content p, .content ul {
+      margin-bottom: 1.2em;
+    }
+
+    .content ul {
+      padding-left: 1.2em;
+    }
+
+    .button-box {
+      background-color: #1a7e74;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 500px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .button-box button {
+      padding: 14px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #0A6A79;
+      background-color: #CFF9FF;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .button-box button:hover {
+      background-color: #1baf8f;
+      color: #fff;
+    }
+
+    .button-box button:disabled {
+      background-color: #ccc;
+      color: #666;
+      cursor: not-allowed;
+    }
+
+  .description p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin: 1em auto;
+    max-width: 600px;
+  }
+
+  .description button {
+    font-size: 0.9em;
+    padding: 8px 16px;
+    background-color: #FFE2E2;
+    border: none;
+    border-radius: 12px;
+    margin-top: 8px;
+    color: #8785A2;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .description button:hover {
+    background-color: #FFC7C7;
+    color: white;
+  }
+
+    .credits {
+      font-size: 0.85em;
+      color: #e3e3e3;
+      margin-top: 40px;
+      text-align: center;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>넘즐 (NUMZZLE) 🎯</h1>
+  <h2>넘버(NUMBER) + 퍼즐(PUZZLE)</h2>
+</header>
+
+<div class="content">
+
+  <h3>🎮 게임 소개 | Game Overview</h3>
+  <p>넘즐은 수학 감각과 창의력을 발휘해야 하는 재미있는 계산 게임입니다.<br>
+     한 라운드마다 주어진 카드로 수식을 만들고,<br>
+     <strong>목표 숫자에 가장 가까운 값</strong>을 만든 사람이 점수를 얻습니다.</p>
+  <p>Numzzle is a fun and strategic math game that challenges your sense of numbers and creativity.<br>
+     Each round, you build an expression using cards to get as close as possible to the <strong>target number</strong>.</p>
+
+  <h3>📋 게임 규칙 | Game Rules</h3>
+  <ul>
+    <li>목표 숫자를 설정하고 게임을 시작합니다.</li>
+    <li>숫자 카드와 연산 카드가 랜덤으로 주어집니다.</li>
+    <li>주어진 카드로 수식을 만들어 **목표 숫자에 가장 가까운 값**을 제출합니다. </li>
+    <li>실수했을 경우 **초기화 버튼**으로 수식을 다시 만들 수 있습니다.</li>
+    <li><strong>결과값이 서로 다를 경우</strong>, 목표 숫자에 가까운 사람이 <strong>10점</strong>을 받습니다.</li>
+    <li><strong>두 사람의 결과값이 같다면</strong>, 둘 다 <strong>10점</strong>을 획득합니다.</li>
+    <li>총 <strong>10라운드</strong>를 진행하며, <strong>누적 점수</strong>가 더 높은 쪽이 승리합니다!</li>
+    <li><strong>연습 게임</strong>은 컴퓨터와 같은 카드를 받고, <strong>실전 게임</strong>은 다른 카드를 받습니다.</li>
+<li>게임의 난이도에 따라   <strong>넘즐초</strong>은 쉬운 버전이고, <strong>넘즐잼</strong>은  보통 정도의 난이도이고, <strong>넘즐</strong>은 어려운 버전이고, <strong>넘즐업</strong>은 계산기가 필요한 매우 어려운 버전입니다.</li>
+  </ul>
+
+  <ul>
+    <li>Set the target number and start the game.</li>
+    <li>You receive random number and operator cards.</li>
+    <li>Use number and operator cards to build and submit an expression.</li>
+    <li> Build an expression using the cards to get as close as possible to the target number.</li>
+    <li>If you make a mistake, use the reset button to start your expression over.</li>
+<li>If the results differ, the one <strong>closer to the target number gets 10 points</strong>; the other gets 0.</li>
+    <li>If both results are equal, <strong>both get 10 points</strong>.</li>
+    <li>After <strong>10 rounds</strong>, the player with the <strong>higher total score wins</strong>.</li>
+    <li><strong>Practice Mode</strong> uses the same cards as the computer, while <strong>Challenge Mode</strong> gives different cards.</li>
+<li><strong>Numzzle Cho</strong> is easy, <strong>Numzzle jam</strong> is medium, and <strong>Numzzle </strong> is hard, <strong>Numzzle Up</strong> is very hard — you might need a calculator!</li>
+  </ul>
+
+</div>
+
+<div class="button-box">
+  <button onclick="location.href='N4.html'">넘즐초 NUMZZLE CHO</button>
+  <button onclick="location.href='N1.html'">넘즐잼  NUMZZLEJAM</button>
+  <button onclick="location.href='N2.html'">넘즐       NUMZZLE </button>
+  <button onclick="location.href='N3.html'">넘즐업   NUMZZLE UP</button>
+  
+</div>
+
+
+<div class="description">
+
+  <p>
+    <strong>워퍼즈 메이트</strong>
+    친구와 같이 하는 단어 찾기 게임! 두근두근 보장!<br>
+    <em>Worpuzz Mate:</em> A word puzzle game to play with a friend! Thrills guaranteed!<br>
+    <button onclick="location.href='https://soosoohan.github.io/worpuzzmate/'">워퍼즈 메이트</button>
+  </p>
+
+  <p>
+    <strong>트링클</strong>
+    별을 이어 삼각형을 만드는 우주 땅따먹기 전략 게임! 재미 보장!<br>
+    <em>Trinkle:</em> A space strategy game where you connect stars to make triangles! Fun guaranteed!<br>
+    <button onclick="location.href='https://soosoohan.github.io/trinkle/'">트링클</button>
+  </p>
+
+  <p>
+    <strong>워퍼즈봇</strong>
+    똑똑해진 컴퓨터와 퍼즐 대결! 재미와 어휘력 두 마리 토끼 잡기 보장!<br>
+    <em>Worpuzz Bot:</em> Battle a smarter computer! Boost your vocabulary and enjoy the challenge!<br>
+    <button onclick="location.href='https://soosoohan.github.io/worpuzz-bot/'">워퍼즈봇</button>
+  </p>
+<p>
+<strong>모음퀴즈</strong>
+    모음만 있는 문장에서 힌트를 보고 자음을 넣어  문장을 완성하는 게임 . 웃음 보장!<br>
+    <em>Moeum - Quiz:</em> A Korean puzzle game where vowels guide you to the answer!<br>
+    <button onclick="location.href='https://soosoohan.github.io/moeum-quiz/'">모음 퀴즈</button>
+  </p>
+</div>
+
+<div class="credits">
+  <p>만든 사람: 한수수<br>
+     코딩 도움: ChatGPT, 클라우드</p>
+  <p>ⓒ 2025 한수수. 이 게임의 모든 권리는 제작자인 한수수에게 있습니다.<br>
+     무단 복제, 배포, 2차 창작을 금합니다.</p>
+  <p>Created by: Soosoo Han<br>
+     Coding Support: ChatGPT and Claude</p>
+  <p>© 2025 Soosoo Han. All rights reserved.<br>
+     No part of this game may be copied, distributed, or modified without permission.</p>
+</div>
+
+</body>
+</html>
