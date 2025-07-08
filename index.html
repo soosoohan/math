@@ -1,10 +1,19 @@
-
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>넘즐 (Numzzle)</title>
-  <style>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
     body {
       font-family: Arial, sans-serif;
       background-color: #209087;
@@ -14,202 +23,325 @@
       text-align: center;
     }
 
-    header {
-      margin-bottom: 40px;
-    }
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  text-align: center;
+  max-width: 390px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  margin: 20px auto;
+}
 
-    h1 {
-      font-size: 2.5em;
-      color: #FFE2E2;
-      margin-bottom: 0.2em;
-    }
+.title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #f0e68c;
+  margin-bottom: 10px;
+}
 
-    h2 {
-      font-size: 1.2em;
-      color: #FFE2E2;
-      margin-top: 0;
-    }
+.subtitle {
+  font-size: 1.1rem;
+  color: #ddd;
+  margin-bottom: 25px;
+}
 
-    .content {
-      max-width: 700px;
-      margin: auto;
-      text-align: left;
-      line-height: 1.6;
-    }
+.game-rules {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 8px;
+  text-align: left;
+  color: #eee;
+  font-size: 0.95rem;
+}
 
-    .content p, .content ul {
-      margin-bottom: 1.2em;
-    }
+.rule-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #ffec8b;
+}
 
-    .content ul {
-      padding-left: 1.2em;
-    }
+.input-label {
+  display: block;
+  text-align: left;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #fcefa9;
+}
 
-    .button-box {
-      background-color: #1a7e74;
-      padding: 30px;
-      border-radius: 16px;
-      max-width: 500px;
-      margin: 40px auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+.input-section {
+  margin-bottom: 20px;
+}
 
-    .button-box button {
-      padding: 14px;
-      font-size: 1.1em;
-      font-weight: bold;
-      color: #0A6A79;
-      background-color: #CFF9FF;
-      border: none;
-      border-radius: 8px;
-      width: 100%;
-      box-sizing: border-box;
-      cursor: pointer;
-    }
+.name-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
 
-    .button-box button:hover {
-      background-color: #1baf8f;
-      color: #fff;
-    }
+.name-input::placeholder {
+  color: #ccc;
+}
 
-    .button-box button:disabled {
-      background-color: #ccc;
-      color: #666;
-      cursor: not-allowed;
-    }
+.name-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 5px #f0e68c;
+}
 
-  .description p {
-    font-size: 0.95em;
-    line-height: 1.6;
-    margin: 1em auto;
-    max-width: 600px;
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.mode-button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #333;
+  background: #fffacd;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: 'Gowun Batang', serif;
+  margin: 20px 0; /* 위아래는 10px, 좌우는 0 */
+}
+
+.mode-button:hover {
+  background: #ffffe0;
+  transform: translateY(-2px);
+}
+
+.mode-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.mode-button:disabled:hover {
+  background: #fffacd;
+  transform: none;
+}
+
+.games-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.game-title {
+  font-weight: bold;
+  color: #f0e68c;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.game-description {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.game-button {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+  background: #fffacd;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: 'Gowun Batang', serif;
+}
+
+.game-button:hover {
+  background: #ffffe0;
+  transform: translateY(-1px);
+}
+
+.credit {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.6;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 500px;
+    padding: 30px 20px;
   }
-
-  .description button {
-    font-size: 0.9em;
-    padding: 8px 16px;
-    background-color: #FFE2E2;
-    border: none;
-    border-radius: 12px;
-    margin-top: 8px;
-    color: #8785A2;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+  
+  .title {
+    font-size: 1.8rem;
   }
+}
 
-  .description button:hover {
-    background-color: #FFC7C7;
-    color: white;
-  }
 
-    .credits {
-      font-size: 0.85em;
-      color: #e3e3e3;
-      margin-top: 40px;
-      text-align: center;
-      line-height: 1.5;
-    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1 class="title">넘즐 (NUMZZLE) 🎯</h1>
+    <p class="subtitle">넘버(NUMBER) + 퍼즐(PUZZLE)</p>
 
-<header>
-  <h1>넘즐 (NUMZZLE) 🎯</h1>
-  <h2>넘버(NUMBER) + 퍼즐(PUZZLE)</h2>
-</header>
+<div class="game-rules">
 
-<div class="content">
-
-  <h3>🎮 게임 소개 | Game Overview</h3>
-  <p>넘즐은 수학 감각과 창의력을 발휘해야 하는 재미있는 계산 게임입니다.<br>
-     한 라운드마다 주어진 카드로 수식을 만들고,<br>
-     <strong>목표 숫자에 가장 가까운 값</strong>을 만든 사람이 점수를 얻습니다.</p>
-  <p>Numzzle is a fun and strategic math game that challenges your sense of numbers and creativity.<br>
-     Each round, you build an expression using cards to get as close as possible to the <strong>target number</strong>.</p>
-
-  <h3>📋 게임 규칙 | Game Rules</h3>
-  <ul>
-    <li>목표 숫자를 설정하고 게임을 시작합니다.</li>
-    <li>숫자 카드와 연산 카드가 랜덤으로 주어집니다.</li>
-    <li>주어진 카드로 수식을 만들어 **목표 숫자에 가장 가까운 값**을 제출합니다. </li>
-    <li>실수했을 경우 **초기화 버튼**으로 수식을 다시 만들 수 있습니다.</li>
-    <li><strong>결과값이 서로 다를 경우</strong>, 목표 숫자에 가까운 사람이 <strong>10점</strong>을 받습니다.</li>
-    <li><strong>두 사람의 결과값이 같다면</strong>, 둘 다 <strong>10점</strong>을 획득합니다.</li>
-    <li>총 <strong>10라운드</strong>를 진행하며, <strong>누적 점수</strong>가 더 높은 쪽이 승리합니다!</li>
-    <li><strong>연습 게임</strong>은 컴퓨터와 같은 카드를 받고, <strong>실전 게임</strong>은 다른 카드를 받습니다.</li>
-<li>게임의 난이도에 따라   <strong>넘즐초</strong>은 쉬운 버전이고, <strong>넘즐잼</strong>은  보통 정도의 난이도이고, <strong>넘즐</strong>은 어려운 버전이고, <strong>넘즐업</strong>은 계산기가 필요한 매우 어려운 버전입니다.</li>
-  </ul>
-
-  <ul>
-    <li>Set the target number and start the game.</li>
-    <li>You receive random number and operator cards.</li>
-    <li>Use number and operator cards to build and submit an expression.</li>
-    <li> Build an expression using the cards to get as close as possible to the target number.</li>
-    <li>If you make a mistake, use the reset button to start your expression over.</li>
-<li>If the results differ, the one <strong>closer to the target number gets 10 points</strong>; the other gets 0.</li>
-    <li>If both results are equal, <strong>both get 10 points</strong>.</li>
-    <li>After <strong>10 rounds</strong>, the player with the <strong>higher total score wins</strong>.</li>
-    <li><strong>Practice Mode</strong> uses the same cards as the computer, while <strong>Challenge Mode</strong> gives different cards.</li>
-<li><strong>Numzzle Cho</strong> is easy, <strong>Numzzle jam</strong> is medium, and <strong>Numzzle </strong> is hard, <strong>Numzzle Up</strong> is very hard — you might need a calculator!</li>
-  </ul>
-
-</div>
-
-<div class="button-box">
-  <button onclick="location.href='N4.html'">넘즐초 NUMZZLE CHO</button>
-  <button onclick="location.href='N1.html'">넘즐잼  NUMZZLEJAM</button>
-  <button onclick="location.href='N2.html'">넘즐       NUMZZLE </button>
-  <button onclick="location.href='N3.html'">넘즐업   NUMZZLE UP</button>
-  
-</div>
-
-
-<div class="description">
-
-  <p>
-    <strong>워퍼즈 메이트</strong>
-    친구와 같이 하는 단어 찾기 게임! 두근두근 보장!<br>
-    <em>Worpuzz Mate:</em> A word puzzle game to play with a friend! Thrills guaranteed!<br>
-    <button onclick="location.href='https://soosoohan.github.io/worpuzzmate/'">워퍼즈 메이트</button>
-  </p>
-
-  <p>
-    <strong>트링클</strong>
-    별을 이어 삼각형을 만드는 우주 땅따먹기 전략 게임! 재미 보장!<br>
-    <em>Trinkle:</em> A space strategy game where you connect stars to make triangles! Fun guaranteed!<br>
-    <button onclick="location.href='https://soosoohan.github.io/trinkle/'">트링클</button>
-  </p>
-
-  <p>
-    <strong>워퍼즈봇</strong>
-    똑똑해진 컴퓨터와 퍼즐 대결! 재미와 어휘력 두 마리 토끼 잡기 보장!<br>
-    <em>Worpuzz Bot:</em> Battle a smarter computer! Boost your vocabulary and enjoy the challenge!<br>
-    <button onclick="location.href='https://soosoohan.github.io/worpuzz-bot/'">워퍼즈봇</button>
-  </p>
+  <div class="rule-title">🎮 게임 소개 | Game Overview</div>
+<div>
 <p>
-<strong>모음퀴즈</strong>
-    모음만 있는 문장에서 힌트를 보고 자음을 넣어  문장을 완성하는 게임 . 웃음 보장!<br>
-    <em>Moeum - Quiz:</em> A Korean puzzle game where vowels guide you to the answer!<br>
-    <button onclick="location.href='https://soosoohan.github.io/moeum-quiz/'">모음 퀴즈</button>
-  </p>
+ 넘즐은 수학 감각과 창의력을 발휘해야 하는 재미있는 계산 게임입니다.  <br>
+     한 라운드마다 주어진 카드로 수식을 만들고,<br>
+     목표 숫자에 가장 가까운 값을 만든 사람이 점수를 얻습니다.</p>
+  <p>Numzzle is a fun and strategic math game that challenges your sense of numbers and creativity.<br>
+     Each round, you build an expression using cards to get as close as possible to the target number.</p>
+<br>
+  🎮 게임 규칙 / Game Rules
+  <div>
+    • 목표 숫자를 설정하고 게임을 시작합니다.<br/>
+    • 숫자 카드와 연산 카드가 랜덤으로 주어집니다.<br/>
+    • 주어진 카드로 수식을 만들어 **목표 숫자에 가장 가까운 값**을 제출합니다. <br/>
+    • 실수했을 경우 **초기화 버튼**으로 수식을 다시 만들 수 있습니다.<br/>
+    • 결과값이 서로 다를 경우, 목표 숫자에 가까운 사람이 10점을 받습니다.<br/>
+    • 두 사람의 결과값이 같다면, 둘 다 10점을 획득합니다.<br/>
+    • 총 10라운드를 진행하며, 누적 점수가 더 높은 쪽이 승리합니다!<br/>
+    • 연습 게임은 컴퓨터와 같은 카드를 받고, 실전 게임은 다른 카드를 받습니다.<br/>
+    • 게임의 난이도에 따라   넘즐초은 쉬운 버전이고, 넘즐잼은  보통 정도의 난이도이고, 넘즐은 어려운 버전이고, 넘즐업은 계산기가 필요한 매우 어려운 버전입니다.<br/>
+    • Set the target number and start the game.<br/>
+    • You receive random number and operator cards.<br/>
+    • Use number and operator cards to build and submit an expression.<br/>
+    • Build an expression using the cards to get as close as possible to the target number.<br/>
+    • If you make a mistake, use the reset button to start your expression over.<br/>
+    • If the results differ, the one closer to the target number gets 10 points; the other gets 0.<br/>
+    • If both results are equal, both get 10 points.<br/>
+    • After 10 rounds, the player with the higher total score wins.<br/>
+    • Practice Mode uses the same cards as the computer, while Challenge Mode gives different cards.<br/>
+    • Numzzle Cho is easy, Numzzle jam is medium, and Numzzle  is hard, Numzzle Up is very hard — you might need a calculator!
+</div>
 </div>
 
-<div class="credits">
-<p> 기획·개발 : 한수수<br>
-개발 보조 : 챗GPT<br>
-코딩 도움 : 클라우드<br>
-디자인 도움: 네이처 리<br>
-ⓒ 2025 한수수. 이 게임의 모든 권리는 제작자인 한수수에게 있습니다.<br>
-  무단 복제, 배포, 2차 창작을 금합니다.<br>
-Created and Developed by Soosoo Han<br>
-Development Assistant: ChatGPT <br>
-  Coding Support: Claude<br>
-Design Support: Nature Lee<br>
-  © 2025 Soosoo Han. All rights reserved.<br>
-     No part of this game may be copied, distributed, or modified without permission.</p>
+<form id="playerForm">
+    <button type="button" class="mode-button" onclick="location.href='N4.html'">
+      넘즐초 NUMZZLE CHO
+    </button>
+      <button type="button" class="mode-button" onclick="location.href='N1.html'">
+      넘즐잼  NUMZZLEJAM
+    </button>
+  <button type="button" class="mode-button" onclick="location.href='N2.html'">
+      넘즐       NUMZZLE
+    </button>
+      <button type="button" class="mode-button" onclick="location.href='N3.html'">
+      넘즐업   NUMZZLE UP
+    </button>
+  
+  </div>
+</form>
+
+<div class="games-section">
+  <div class="game-item">
+    <div class="game-title">워퍼즈 메이트</div>
+    <div class="game-description">
+      친구와 같이 하는 단어 찾기 게임! 두근두근 보장!<br>
+      <em>Worpuzz Mate:</em> A word puzzle game to play with a friend! Thrills guaranteed!
+    </div>
+    <button class="game-button" onclick="location.href='https://soosoohan.github.io/worpuzzmate/'">워퍼즈 메이트</button>
+  </div>
+
+  <div class="game-item">
+    <div class="game-title">넘즐</div>
+    <div class="game-description">
+      숫자 카드로 목표값에 가까운 수식을 만드는 수학 게임! 두뇌 개발 보장!<br>
+      <em>Numzzle:</em> A math card game to build formulas close to the target number! Brain power guaranteed!
+    </div>
+    <button class="game-button" onclick="location.href='https://soosoohan.github.io/numzzle/'">넘즐</button>
+  </div>
+
+  <div class="game-item">
+    <div class="game-title">워퍼즈봇</div>
+    <div class="game-description">
+      똑똑해진 컴퓨터와 퍼즐 대결! 재미와 어휘력 두 마리 토끼 잡기 보장!<br>
+      <em>Worpuzz Bot:</em> Battle a smarter computer! Boost your vocabulary and enjoy the challenge!
+    </div>
+    <button class="game-button" onclick="location.href='https://soosoohan.github.io/worpuzz-bot/'">워퍼즈봇</button>
+  </div>
+
+  <div class="game-item">
+    <div class="game-title">모음퀴즈</div>
+    <div class="game-description">
+      모음만 있는 문장에서 힌트를 보고 자음을 넣어 문장을 완성하는 게임. 웃음 보장!<br>
+      <em>Moeum Quiz:</em> A Korean puzzle game where vowels guide you to the answer!
+    </div>
+    <button class="game-button" onclick="location.href='https://soosoohan.github.io/moeum-quiz/'">모음 퀴즈</button>
+  </div>
 </div>
+
+<p class="credit">
+
+* 기획·개발 : 한수수<br/>
+* 개발 보조 : 챗GPT<br/>
+* 코딩 도움 : 클라우드<br/>
+* 디자인 도움: 네이처 리<br/>
+ⓒ 2025 한수수. 이 게임의 모든 권리는 제작자인 한수수에게 있습니다.<br/> 무단 복제, 배포, 2차 창작을 금합니다.<br/>
+* Created and Developed by Soosoo Han<br/>
+* Development Assistant: ChatGPT<br/>
+* Coding Support: Cloud<br/>
+* Design Support: Nature Lee<br/>
+  Created by: Soosoo Han<br/>
+  Assistant: ChatGPT, Jaechi, Claude, Nature Lee<br/>
+  © 2025 Soosoo Han. All rights reserved.
+</p>
+
+  </div>
+
+  <script>
+    const player1Input = document.getElementById('player1');
+    const player2Input = document.getElementById('player2');
+    const startBtn = document.getElementById('startBtn');
+
+    function checkInputs() {
+      const name1 = player1Input.value.trim();
+      const name2 = player2Input.value.trim();
+      startBtn.disabled = !(name1 && name2);
+    }
+
+    player1Input.addEventListener('input', checkInputs);
+    player2Input.addEventListener('input', checkInputs);
+
+    startBtn.addEventListener('click', function () {
+      const name1 = player1Input.value.trim();
+      const name2 = player2Input.value.trim();
+      if (name1 && name2) {
+        // Note: localStorage is not available in this environment
+        // In a real implementation, you would store the names like this:
+        // localStorage.setItem('player1Name', name1);
+        // localStorage.setItem('player2Name', name2);
+        alert(`게임을 시작합니다! ${name1} vs ${name2}`);
+        // window.location.href = 'T1.html';
+      }
+    });
+  </script>
 
 </body>
 </html>
