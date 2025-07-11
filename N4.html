@@ -116,7 +116,7 @@ border-color: #ccc;
 
 <div id="startScreen" class="max-w-4xl mx-auto p-6">
   <div class="bg-white rounded-lg shadow-lg p-8">
-    <h1 class="text-4xl font-bold text-center mb-4 text-blue-600">넘즐초 (NUMZZLE CHO)</h1>
+    <h1 class="text-2xl font-bold text-center mb-4 text-blue-600">넘즐초 (NUMZZLE CHO)</h1>
 
 <div class="p-6 bg-yellow-50 rounded-lg mb-6">
   <p class="text-lg leading-relaxed text-gray-700">
@@ -196,7 +196,7 @@ Challenge Mode gives you different cards.
 <div id="gameScreen" class="hidden max-w-6xl mx-auto p-6">
   <div class="bg-white rounded-lg shadow-lg p-6">
     <div class="text-center mb-6">
-      <h1 class="text-3xl font-bold text-blue-600 mb-2">넘즐초 (NUMZZLE CHO)</h1>
+      <h1 class="text-2xl text-blue-600 mb-2">넘즐초 (NUMZZLE CHO)</h1>
       <p class="text-xl mb-4">🎯<span id="targetDisplay" class="font-bold text-red-600"></span></p>
     </div>
 
@@ -223,19 +223,7 @@ Challenge Mode gives you different cards.
 <div class="mb-6">
   <h3 class="text-lg font-bold mb-2">내 수식 (My Expression):</h3>
   <div id="userExpression" class="bg-white p-3 border-2 border-green-300 rounded-lg text-xl font-mono text-center">
-    (카드를 클릭하세요)
-  </div>
-</div>
-
-<div class="mb-6">
-  <h3 class="text-xl font-bold mb-3">컴퓨터 카드 (Computer Cards):</h3>
-  <div id="computerCardsArea" class="flex flex-wrap gap-3 justify-center"></div>
-</div>
-
-<div class="mb-6">
-  <h3 class="text-lg font-bold mb-2">컴퓨터 수식 (Computer Expression):</h3>
-  <div id="computerExpression" class="bg-white p-3 border-2 border-red-300 rounded-lg text-xl font-mono text-center">
-    컴퓨터가 생각 중...<br>Computer is thinking...
+    (카드를 클릭해서 수식을 만드세요)
   </div>
 </div>
 
@@ -266,6 +254,18 @@ Challenge Mode gives you different cards.
   </button>
 </div>
 
+<div class="mb-6">
+  <h3 class="text-xl font-bold mb-3">컴퓨터 카드 (Computer Cards):</h3>
+  <div id="computerCardsArea" class="flex flex-wrap gap-3 justify-center"></div>
+</div>
+
+<div class="mb-6">
+  <h3 class="text-lg font-bold mb-2">컴퓨터 수식 (Computer Expression):</h3>
+  <div id="computerExpression" class="bg-white p-3 border-2 border-red-300 rounded-lg text-xl font-mono text-center">
+    컴퓨터가 생각 중...<br>Computer is thinking...
+  </div>
+</div>
+
 <div id="resultArea" class="hidden text-center p-6 bg-gray-100 rounded-lg">
   <p class="text-lg text-gray-600">게임 종료</p>
 </div>
@@ -278,14 +278,14 @@ Challenge Mode gives you different cards.
       설정<br>Settings
     </span>
   </button>
-  <button onclick="goHome()"
+<button onclick="goHome()"
     class="cloud-btn text-purple-800 text-lg font-bold py-3 px-6 mr-4 transition-colors relative">
     <span class="cloud-text">
       <span class="cloud-icon">🏠</span>
       홈으로<br>Home
     </span>
   </button>
-</div>
+  </div>
 
   </div>
 </div>
@@ -537,7 +537,7 @@ const startGame = () => {
 
   renderCards();
   renderComputerCards();
-  document.getElementById('userExpression').textContent = '(카드를 클릭하세요)';
+  document.getElementById('userExpression').textContent = '(카드를 클릭해서 수식을 만드세요.)';
   document.getElementById('computerExpression').textContent = '컴퓨터가 생각 중...\nComputer is thinking...';
 
   document.getElementById('startScreen').classList.add('hidden');
