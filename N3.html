@@ -7,6 +7,7 @@
 <title>넘즐업 (NUMZZLE UP)</title>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <style>
+  
 .cloud-btn {
   background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
   border-radius: 50px;
@@ -60,7 +61,7 @@ z-index: 1;
 
 <div id="startScreen" class="max-w-4xl mx-auto p-6">
   <div class="bg-white rounded-lg shadow-lg p-8">
-    <h1 class="text-4xl font-bold text-center mb-4 text-blue-600">넘즐업 (NUMZZLE UP)</h1>
+    <h1 class="text-2xl font-bold text-center mb-4 text-blue-600">넘즐업 (NUMZZLE UP)</h1>
     <p class="text-center text-sm mb-8 text-gray-600">NUMZZLE UP is a combination of "NUMBER" and "PUZZLE".</p>
 
 <div class="p-6 bg-yellow-50 rounded-lg mb-6">
@@ -122,7 +123,7 @@ z-index: 1;
 <div id="gameScreen" class="hidden max-w-6xl mx-auto p-6">
   <div class="bg-white rounded-lg shadow-lg p-6">
     <div class="text-center mb-6">
-      <h1 class="text-3xl font-bold text-blue-600 mb-2">넘즐업 (NUMZZLE UP)</h1>
+      <h1 class="text-2xl  text-blue-600 mb-2">넘즐업 (NUMZZLE UP)</h1>
       <p class="text-xl mb-4">🎯<span id="targetDisplay" class="font-bold text-red-600"></span></p>
     </div>
 
@@ -149,22 +150,9 @@ z-index: 1;
 <div class="mb-6">
   <h3 class="text-lg font-bold mb-2">내 수식 (My Expression):</h3>
   <div id="userExpression" class="bg-white p-3 border-2 border-green-300 rounded-lg text-xl font-mono">
-    (카드를 클릭하세요)
+    (카드를 클릭해서 수식을 만드세요)
   </div>
 </div>
-
-<div class="mb-6">
-  <h3 class="text-xl font-bold mb-3">컴퓨터 카드 (Computer Cards):</h3>
-  <div id="computerCardsArea" class="flex flex-wrap gap-2"></div>
-</div>
-
-<div class="mb-6">
-  <h3 class="text-lg font-bold mb-2">컴퓨터 수식 (Computer Expression):</h3>
-  <div id="computerExpression" class="bg-white p-3 border-2 border-red-300 rounded-lg text-xl font-mono">
-    컴퓨터가 생각 중...<br>Computer is thinking...
-  </div>
-</div>
-
 <div id="actionButtons" class="flex gap-4 mb-6">
   <button onclick="submitExpression()"
     class="cloud-btn flex-1 text-green-800 text-lg font-bold py-3 px-6 transition-colors relative">
@@ -191,6 +179,19 @@ z-index: 1;
     </span>
   </button>
 </div>
+
+<div class="mb-6">
+  <h3 class="text-xl font-bold mb-3">컴퓨터 카드 (Computer Cards):</h3>
+  <div id="computerCardsArea" class="flex flex-wrap gap-2"></div>
+</div>
+
+<div class="mb-6">
+  <h3 class="text-lg font-bold mb-2">컴퓨터 수식 (Computer Expression):</h3>
+  <div id="computerExpression" class="bg-white p-3 border-2 border-red-300 rounded-lg text-xl font-mono">
+    컴퓨터가 생각 중...<br>Computer is thinking...
+  </div>
+</div>
+
 
 <div id="resultArea" class="hidden text-center p-6 bg-gray-100 rounded-lg">
   <p class="text-lg text-gray-600">게임 종료</p>
@@ -534,7 +535,7 @@ const startGame = () => {
 
   renderCards();
   renderComputerCards();
-  document.getElementById('userExpression').textContent = '(카드를 클릭하세요)';
+  document.getElementById('userExpression').textContent = '(카드를 클릭해서 수식을 만드세요.)';
   document.getElementById('computerExpression').textContent = '컴퓨터가 생각 중...';
 
   document.getElementById('startScreen').classList.add('hidden');
