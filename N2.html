@@ -65,11 +65,12 @@ z-index: 1;
 
 <div id="startScreen" class="max-w-4xl mx-auto p-6">
   <div class="bg-white rounded-lg shadow-lg p-8">
-    <h1 class="text-4xl font-bold text-center mb-4 text-blue-600">넘즐 (NUMZZLE)</h1>
+    <h1 class="text-2xl font-bold text-center mb-4 text-blue-600">넘즐 (NUMZZLE)</h1>
     <p class="text-center text-sm mb-8 text-gray-600">NUMZZLE is a combination of "NUMBER" and "PUZZLE".</p>
 
 <div class="p-6 bg-yellow-50 rounded-lg mb-6">
-  <h3 class="text-xl font-bold mb-2 text-center">넘즐 규칙 (Game Rules)</h3>
+  
+<h3 class="text-xl font-bold mb-2 text-center">넘즐 규칙 (Game Rules)</h3>
   <p class="text-lg leading-relaxed text-gray-700">
     넘즐은 주어진 숫자와 연산기호를 이용하여 목표 숫자에 가장 가까운 결과를 만드는 게임입니다.
     <br>수식의 결과가 목표 숫자에 딱 맞거나 가장 근접하면 10점을 받습니다.<br>
@@ -117,7 +118,7 @@ Practice Mode gives you the same cards as the computer. <br>
 <div id="gameScreen" class="hidden max-w-6xl mx-auto p-6">
   <div class="bg-white rounded-lg shadow-lg p-6">
     <div class="text-center mb-6">
-      <h1 class="text-3xl font-bold text-blue-600 mb-2">넘즐 (NUMZZLE)</h1>
+      <h1 class="text-2xl  text-blue-600 mb-2">넘즐 </h1>
       <p class="text-xl mb-4">🎯<span id="targetDisplay" class="font-bold text-red-600"></span></p>
     </div>
 
@@ -144,22 +145,9 @@ Practice Mode gives you the same cards as the computer. <br>
 <div class="mb-6">
   <h3 class="text-lg font-bold mb-2">내 수식 (My Expression):</h3>
   <div id="userExpression" class="bg-white p-3 border-2 border-green-300 rounded-lg text-xl font-mono">
-    (카드를 클릭하세요)
+    (카드를 클릭해서 수식을 만드세요.)
   </div>
 </div>
-
-<div class="mb-6">
-  <h3 class="text-xl font-bold mb-3">컴퓨터 카드 (Computer Cards):</h3>
-  <div id="computerCardsArea" class="flex flex-wrap gap-2"></div>
-</div>
-
-<div class="mb-6">
-  <h3 class="text-lg font-bold mb-2">컴퓨터 수식 (Computer Expression):</h3>
-  <div id="computerExpression" class="bg-white p-3 border-2 border-red-300 rounded-lg text-xl font-mono">
-    컴퓨터가 생각 중...<br>Computer is thinking...
-  </div>
-</div>
-
 <div id="actionButtons" class="flex gap-4 mb-6">
   <button onclick="submitExpression()"
     class="cloud-btn flex-1 text-green-800 text-lg font-bold py-3 px-6 transition-colors relative">
@@ -186,6 +174,19 @@ Practice Mode gives you the same cards as the computer. <br>
     </span>
   </button>
 </div>
+
+<div class="mb-6">
+  <h3 class="text-xl font-bold mb-3">컴퓨터 카드 (Computer Cards):</h3>
+  <div id="computerCardsArea" class="flex flex-wrap gap-2"></div>
+</div>
+
+<div class="mb-6">
+  <h3 class="text-lg font-bold mb-2">컴퓨터 수식 (Computer Expression):</h3>
+  <div id="computerExpression" class="bg-white p-3 border-2 border-red-300 rounded-lg text-xl font-mono">
+    컴퓨터가 생각 중...<br>Computer is thinking...
+  </div>
+</div>
+
 
 <div id="resultArea" class="hidden text-center p-6 bg-gray-100 rounded-lg">
   <p class="text-lg text-gray-600">게임 종료</p>
@@ -573,7 +574,7 @@ const startGame = () => {
 
   renderCards();
   renderComputerCards();
-  document.getElementById('userExpression').textContent = '(카드를 클릭하세요)';
+  document.getElementById('userExpression').textContent = '(카드를 클릭해서 수식을 만드세요.)';
   document.getElementById('computerExpression').textContent = '컴퓨터가 생각 중...\nComputer is thinking...';
 
   document.getElementById('startScreen').classList.add('hidden');
